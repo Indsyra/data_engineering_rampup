@@ -32,7 +32,7 @@ OpEx (Pay as you go - Pas d'investissement initial - location de services) no ne
 Cloud model: consumption based : pay based on immediate usage, low usage = low costs, can increase resources if needed
 
 Exam tips :
-1. The cloud is on-de,and delivery of compute services over the internet
+1. The cloud is on-demand delivery of compute services over the internet
 Flexibility is the key advantage
 2. Ongoing, foundational topic separation of responsibility between vendor and customr
 
@@ -158,3 +158,71 @@ Defense in depth: Defend data with layers of defense : Data/application/compute/
 Cloud vendor handles physical security
 
 # Cloud Benefits
+
+## Revisiting Cloud Misconceptions
+- There is no cloud (it's just someone else's computer) => 
+
+## Cloud benefits at one glance
+- Do things better and faster
+- High availability
+Available even if disrupted (even if some components fail)
+Reduce service interruption (downtime is bad for business)
+Introduce redundacy to prevent downtime
+Extra servers require time + money
+Cloud scenario : Add more servers instantly, if hardware fails, it is automatically replaced, clusters esure improved high availability paired with load balancer, cloud vendor provides uptime guarantees for underlying service (service level agreement - SLA)
+Summary: Redundant against disruptions, cloud = instant servers/instant replacements, cloud vendor guarantees service availability
+
+- Scalability
+Increase resource to meet demand
+Instantly and automatically adjust resources
+Users -> Load Balancer (equilibre la charge sur differentes machines/serveurs) -> Création/Retrait des serveurs en fonction de la charge d'utilisation
+Deux différents types de Scaling :
+Scaling out or Horizontal : Add additional VMs, load balancer distributes traffic across VMs, automatic, no downtime, typical cloud model
+Scaling up or Vertical : Increase computre resource on existing server/VM, add CPU/RAM/disk space, usually manual, requires downtime/reboot
+Summary: Add/remove compute capacity to meet demand, cloud = automatic/instant scaling, horizontal vs vertical scaling : horizontal=add more servers, vertical=make existing servers bigger
+
+- Reliability
+Ability to recover from failures and disasters and continue to function
+Résilience du cloud computing => Empêcher les downtimes
+Strategies :
+No single point of failure (decentralized design, if one computer goes down, others pick up the load, applies to the cloud vendor's and your resources)
+Deploy to multiple locations (global scale, protect against regional failure/disaster, always close to your customer wherever they are)
+Summary: disaster-proofing your infrastructure, no single point of failure, protect against regional failures
+
+- Predictability
+Predictable performance : consistent performance all the time regardless of demand/customer location, always enough resources when needed (autoscaling, high availability, load balancing), plan your deployment around cloud-native best practices (multiple regions, no single point of failure, automatically scale, well-architected framework)
+Predictable costs : accurately track and forecast costs => tools to manage current and future costs
+Summary: consistent performance, no surprise bills
+
+- Security
+Provided solutions to meet your security needs (Choose your level of security control, network controls)
+
+- Governance
+Standards and compliance enforcement : require minimum standards for cloud deployments (encryption standards, location restrictions), meet corporate standards and/or compliance requirements (GDPR), cloud vendor-provided tools (templates, auditing tools, automated patching)
+
+- Manageability
+Of the cloud : how you automatically control cloud resources, autoscaling, monitoring, template-based deployments => What you do to the resource itself
+In the cloud : how you interact with the cloud resources, variety of interaction tools, web portal, command line, APIs => How you do it
+
+##  Exam tips : 
+Automation + instant resources : automatically create instantly available resources
+
+Decentralize critical infrastructure : global distribution + automatic failover
+
+Describe each benefit : Overlap betweem them, name the specific advantage of each benefit
+
+High availability: means systems are always available - even automatically
+
+Scalability : refers to scaling out or scaling up while automatically providing resources as needed
+
+Reliability : describes how Azure can tolerate failures or even disasters
+
+Predictability : is knowing your application will always perform as expected and knowing what it will cost
+
+Security : having full control of your cloud security posture
+
+Governance : standardizing cloud deployments to meet requirements/company standards
+
+Manageability : tools to control cloud resources and how we interact with them
+
+##
