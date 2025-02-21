@@ -37,4 +37,124 @@ Flexibility is the key advantage
 2. Ongoing, foundational topic separation of responsibility between vendor and customr
 
 # Cloud Service Types
+=> As a service (aas) brand cloud products
+Trois types de clouds:
+=> Difference stays in the control the customer want to keep
+
+## Iaas: 
+Infrastructure  (More responsability to the customer) : Basic computing infrastructure/Greater customization/control, pay for what you allocate, more management overhead
+
+Responsibility of the cloud provider:
+Physical Datacenter
+Network cabling
+Physical servers
+
+Customer responsibility:
+- Software OS updates
+- User management
+- Network access
+
+- provisioned and managed over the internet
+
+Pay-as-you-go managed IT infrastructure:
+VM (servers) (Vrtual computer) => Networking, Operating Systems
+
+Single physical sever (hypervisor) hosting multiple/individual VMs (Example: Hyper-V, VMware)
+
+You manage a single VM that is only for you
+
+All the VMs on the hypervisor are completely isolated from each other
+
+## PaaS: 
+Platform : prepackaged cloud services, emphasis on application development, pay for what you use, less management overhead
+
+Responsibility of the cloud provider:
+Physical Datacenter
+Network cabling
+Physical servers
+Operating System
+Development tools/Database management/Business Analysis
+Server infrastructure
+Auto-scaling
+Software licenses/middleware
+
+Managed Development/Deployment Services:
+-> Managed services for developing solutions
+Develop applications/solutions without managing infrastructure
+Cloud vendor focuses on infrastructure - you focus on developing solutions
+
+Paas Terminology: Fully managed
+
+Serverless : 
+Cloud vendor handles OS; runtime environments
+Just run code
+Don't worry about where it runs
+Charged when code runs
+Run code with no infrastructure management
+
+## Saas: 
+
+Software (least amount of gestion), ready-to-use applications, focus is on end-user experience, pay for what you subscribe, minimal management overhead
+
+Responsibility of the cloud provider:
+Physical Datacenter
+Network cabling
+Physical servers
+Operating System
+Development tools/Database management/Business Analysis
+Server infrastructure
+Auto-scaling
+Software licenses/middleware
+Hosted applications
+
+Customer responsibility:
+Accounts and identities (authentication requirements)
+Device management (ensure device security)
+Informaton and data (protect data access, access control)
+
+Cloud-based applications:
+applications hosted and accessed over the internet
+subscription pricing model
+Examples: email, office tools, CRMs
+(Example )
+
+Saas applications are powered by Iaas/Paas services
+Benefits :
+- Ready to go software (easy scaling, pre-configured and easy to use)
+- Accessed over internet (no hosting required, access from anywhere)
+- easy licensing (subscription model)
+- Tailored for specialized use cases
+
+## Defense in Depth
+slow or stop unauthorized data access
+7 layers to protect data:
+- Physical security (first line of defense, building/hardware access)
+- Identity access (securing identities, grant account access to only what's needed)
+- Perimeter (protect against network-based attacks)
+- Network (secure connectivity between resources)
+- Compute (secure VMs, endpoint protection/OS patching)
+- Application (resolve application vulnerabilities, secure secrets, design for security)
+- Data (primary target, databases, disks, saas applications, control access)
+
+## Exam tips : Cloud service types
+Iaas : Managed infrastructure / Virtual machines (VMs)
+CPU/RAM/OS/networking
+Full control but with more responsibility
+
+Paas: Fully managed cloud solutions
+Cloud vendor handles infrastructure, you focus on developing soutions
+Serverless:zero resource management
+trade less flexibility/control for less management
+
+Saas: Ready-to-go, cloud based software
+Productivity applications:
+- accessed over the internet
+- hosting and scaling provided
+
+subscription model
+
+Defense in depth: Defend data with layers of defense : Data/application/compute/network/perimeter/identity and access/physical security
+
+Cloud vendor handles physical security
+
 # Cloud Benefits
