@@ -123,3 +123,146 @@ often paired with MFA
 Create conditional access policy : assign signals (conditions : users/groups, application to grant/deny access, location, approved devices), access decisions (grant/block access, require MFA)
 
 Scenarios : Enforce MFA for all administrators/users, block sign-ins using legacy authentication protocols, grant access only to specific locations, require organisation-manage devices for application sign-in
+
+## Passwordless authentication
+
+### Security vs Convenience
+More steps required to log in
+
+### One possible solution
+Password is removed: replaced by sthg I have (phone or key fov), sthg I know (fingerprint) => Increase convenience while staying secure
+
+Password only : more convenient but low security
+Password + MFA : inconvenient with high security
+Passwordless authentication : convenient with high security
+
+### Methods
+MFA application : Microsoft MFA mobil app (Configure in Azure AD), authenticate with biometric
+Windows Hello : face recognition in Windows
+FIDO2 Security Key : hardware key
+
+
+### Example
+Log in to Microsof 365 qnd enter username
+Instead of a password, prompted to check Microcsoft Authenticator
+Use the biometric/PIN in the authenticator app
+
+## External Guest Access
+=> enables security outside of your organizational boundaries
+=> provides visibility of external guest activity within your organizational IT borders
+
+### Challenge
+How do you interact with external users ?
+=> consultants and customers in a streamlined Azure or Entra ID/ Azure AD configuration
+
+Solutions :
+- New IDs for every external user
+- Current IDs for every external users
+
+Azure AD B2B : Entra external ID for partners
+=> Designed for interacting with internal resources
+=> User has an identity inside of Entra ID/Azure AD that can be managed by your org
+
+Azure AD B2C : Entra external ID for customers
+=> Designed for interacting with externally facing resources like applications, websites, etc.
+=> User's identity is managed by whatever their provider is (Microsoft, Google, Facebook, etc)
+
+### Azure AD B2B : Entra external ID for partners
+External user already has an ID with another service or provider
+Your organization initiates an invitation to that external user's ID
+External user accepts the invitation, and a user object (ID) is created inside your org based on that external ID
+=> provides a federated level of trust for tenants
+
+### Azure AD B2C : Entra external ID for customers
+External user already has an ID with another service or provider
+External usr is provided the option to use their existing ID
+External user alogs using their current ID with their provider, and that authorization is passed into the application via a B2C directory.
+The organisation trusts the external user
+=> allows for improved integration with customer systems
+
+### Adding a guest user
+Invite a variety of account types
+Assign permissions for guest account
+Optional: Assign guest user to application
+Optional: Apply cross-tenant conditional access policy
+
+### Inviting an external consultant
+Configure identity provider (if non-Microsoft)
+Invite external party
+After guest user accepts invitation, assign permissions
+
+
+## Azure Active Directory Domain Services
+
+### Limitations Entra ID/Azure AD and Cloud Migrations
+Legacy applications unable to use modern authentication protocols
+
+### Possible Solutions
+Continue using on-premises AD : Sync to Entra ID/Azure AD with Azure AD Connect
+Configure AD Server on Azure VM (also known as self-managed AD DS) : You maintain/configure the operating system
+Azure Active Directory Domain Services : Managed Active Directory Domain Service, Provide classic AD Services
+
+### How Azure AD DS Works
+No need for os config/management
+Create unique namespace/domain name
+One-way sync from entra ID/Azure AD
+
+### Example Azure AD DS
+
+## Managing Access to resources with Role-Based Access (RBAC)
+
+### Azure RBAC (Role-Based Access control)
+controle access based on role (assigned to the user, devices)
+
+### Azure RBAC Roles
+Built-In roles for convenience
+Custom roles for specificity
+
+### Role Assignment
+Scope: only the permissions necessary
+Scope: only the resources/services necessary
+Scope: only to individuals when absolutely necessary
+
+
+### Inheritance
+propagates permissions in a hierarchy
+capability of custom roles to inherit permissions from other roles
+application of permissions to a lower level organizational construct
+
+instead of assign a role individually better assign individuals to a group where their roles are defined
+
+### Best practices
+Least privileges : only the permissions necessary
+Use of roles : built in whenever possible; use custom roles with care
+role segregation: separate duties and responsibilities, avoid combining roles that grant conflicting permissions or excessive access
+resource or service scope: avoid permission sprawl
+review, audit and document: check, double check; and write it down
+
+## Revisiting Defense in Depth
+Even at the identity level, layered defense is the best practice
+Defense in
+depth at the identity level can even play into application security
+### Overview
+mitigate or reduce unauthorized data access
+method: layered defense => makes access difficult enough to access data
+
+### Castle example
+### Identity example
+
+User => Password => MFA => Conditional access 
+
+## Exam tips:
+Identity: unique identifier for any digital object
+Authentication: proves identity
+Authorization: scopes identity
+Azure ID/Entra ID includes all three
+
+Microsoft Entra is a product family that includes Azure AD/Microsoft Entra ID
+AD is not the same as Azure AD/Microsoft Entra ID
+Every Azure account will have an 
+
+What is the name of the Azure component that is responsible for all interactions with Azure, including the Azure portal, programmatic access, and command-line interaction?
+The Azure Resource Manager manages and controls access to all interaction with Azure.
+
+![alt text](image.png)
+![alt text](image-1.png)
