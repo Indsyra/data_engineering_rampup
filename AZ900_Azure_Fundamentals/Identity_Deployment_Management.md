@@ -5,6 +5,7 @@ AZ900 starting point for a career in Azure. Entry-level Azure exam prove knowled
 # Course overview
 
 Identity, Deployment And Management : what each of these means and how they are accomplished in Azure, describe the tools used for each concept, launching point for pursuing specific areas of Azure
+![alt text](image-14.png)
 
 # Defining Identity Authentication and Authorization
 
@@ -266,3 +267,186 @@ The Azure Resource Manager manages and controls access to all interaction with A
 
 ![alt text](image.png)
 ![alt text](image-1.png)
+
+
+# Management and Deployment Tools
+
+## Interacting with Azure Resource Manager
+### What is ARM ?
+Service used for deployment and management in Azure
+=> Creating, updating and deletion of resources in an Azure account
+=> Management features like access control, locks and tags enable the securing and organizing of resources after deployment
+=> Bridge between the user and Azure resources
+
+### What is ARM for ?
+=> Gestion des ressources en donnant une méthode cohérente sur leur méthode de gestion et de déploiement
+
+consistency
+convenience
+control
+confidence
+capability
+
+
+### Who is ARM for ?
+Everyone
+Question of how, not whether : regardless of method, interactive, non-interactive
+
+## Understanding the Azure Portal
+visual interface for deploying, configuring, monitoring, and auditing resources/services in Azure.
+
+provides web-based access to CLI tools
+
+first place to go when learning deployment and configuration
+
+primary place to try out new Azure technologies
+
+Visual data represented for monitoring, cost.billing and organization
+
+### Description
+web-based, visual interface for interacting with Azure
+visual deployment, representation of resources, monitoring and alerting, easy cost estimation
+
+### Visual components
+
+
+### Visual customizations
+### Portal settings
+### Powerful Search
+Documentation is also accessible through search
+
+### Dashboards
+Summarize all the vital informations
+
+## Azure CLI
+### Basics
+Concise Syntax
+Unix-style command language
+Platform agnostic
+
+### Interacting with Azure CLI
+One step installation process
+Click on Azure Shell Content
+Using bash or Powershell => Select Bash
+Access through a local terminal through "az" command
+
+### Using CLI in Deployment
+Option 1: Azure Cloud shell
+Option 2: Local terminal
+
+az group create --name $resourceGroup --location "$location" --tags $tag => deploying resource group
+az storage account keys list => reaching out to Azure to pull out and list keys
+az group delete --name $resourceGroup => deleting a resource group
+
+## Azure Powershell
+
+### Components of Powershell
+Command-line shell
+Scripting language PS => Focused on
+Configuration Management Framework PSD1
+
+### Basic Module Actions
+Access through :
+- Azure Cloud Shell
+- Local terminal
+
+Versatile (Powershell 6 and 7 are cross-platform)
+Powerful Help through Get-Help command
+
+### Comparison to Azure CLI
+AZ PS : Powershell module, specific shell (Powershell 5+), verbose syntax, common language with Powershell, Scriptable within Powershel
+
+AZ CLI : Executable package, any shell, terse syntax, new language specific to Azure CLI, Scriptable within any shell
+
+### Azure Powershell scenarios
+S1 : Previous Powershell Experience
+S2: Pre-existing pozershell experience
+S3: Object output paradigm
+
+### Azure CLI scenarios
+S1: Previous bash sh experience
+S2: Pre-existing scripting environment
+S3: Diverse shell interactions
+
+## Accessing Azure Cloud Shell
+### Benefits of Azure Cloud Shell
+Automatic authentication into Azure AD
+Choice of shell
+AZ PS and AZ CLI built in
+Direct access to Azure storage
+
+### Access Methods
+AZ Portal
+AZ Terminal
+
+### Azure Portal Benefits
+Access from a web browser
+Automatic authentication
+
+### Local Terminal Benefits
+Choice of terminal app
+Easier access to local resources
+Native app experience (Windows terminal has automatically az installed)
+
+## Lab
+az group list => lists all the resources groups we are connected to
+az storage account list => storage accounts that are deployed 
+az vm list => VMs that are deployed
+
+![alt text](image-2.png)
+
+## Azure ARM Templates
+### Description
+Files written in JSON that define the infrastructure and configuration of resources in Azure
+
+Key tool of provisioning resources in Azure
+
+### Benefits
+- Declarative : tells Azure what it wants and Azure determines the best way to do it
+- Repeatable : Deploys the same thing every time
+- Modular : Break large deployments down into smaller components
+- Testable : test your ARM deployment before pushing to Azure
+- Exportable : Take an existing deployment and export the template
+
+### Template Examples
+template.json
+![alt text](image-3.png)
+
+template.bicep
+![alt text](image-4.png)
+
+### Deployment Examples
+If a resource already exists as an ARM template is pushed for a resource creation, Azure will compare the existing one to the one that is attempted to be pushed and perform the required changes if it is the best solution.
+
+## Exam Tips
+- ARM is the service fordeploying and managing resources in Azure
+- Provides consistency,convenience, control, confidence and capability for Azure resource deployment
+- ARM is the bridge between user and Azure resources
+
+Understanding Azure Portal
+
+Visual interface for deploying, configuring, monitoring and auditing resources/services in Azure
+Provides web-based access to CLI tools
+First place to go when learning deployment and configuration
+Primary place to try out new Azure technologies
+Visual data represented for monitoring, cost/billing and organisation
+
+Azure CLI
+Compiled installable available in Azure Cloud Shell
+Uses Unix-style command language
+Platform agnostic
+
+Azure Powershel
+Consistent Syntax: powershel verb-noun paradigm
+Versatile
+Powerful Help: Get-Help
+
+![alt text](image-5.png)
+![alt text](image-6.png)
+![alt text](image-7.png)
+![alt text](image-8.png)
+![alt text](image-9.png)
+![alt text](image-10.png)
+![alt text](image-11.png)
+![alt text](image-12.png)
+![alt text](image-13.png)
