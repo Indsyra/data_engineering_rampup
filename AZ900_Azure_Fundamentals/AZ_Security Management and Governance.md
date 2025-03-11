@@ -57,49 +57,86 @@ Hybrid use benefits
 ## Factors that Influence Cost
 Knowthe context of cost-saving measures
 Commit whereit makes sense
-Leverage the tool availablefor forecast
+Leverage the tool available to forecast what cost might be
 
 ### Resource types
 VMs billed based on comput,memory, storage, OS and time
-Storage account - billed based on type (blob, file, disk, etc) and redundancy
+Storage account - billed based on type (blob, file, disk, etc) and redundancy (local, regional, global)
 Data transfers - inbound data is usually free, outbound costs
-Databases - billed based on transactions and/or dedicated resources
+Databases - billed based on transactions and/or dedicated resources (depends on the type of the type of database)
 
 ### Location / Region
 Azure is a global cloud offering
+Variation can be influenced by: local regulations, energy costs and demand within the region or data centers
 Consider deploying to lower cost regions but always consider latency and data residency
 
 ### Service Tiers
 VMs (Basic vs Standard, Optimization (general purpose, memory, GPU), Std Hard Drive)
-Storage accounts Blob (std vs prem), Files (prem, hot, cold), data lake, hdd vs SSD
-Database : single vs elastic pool, vcore vs DTU, GP, BC, Hyper, Provisioned vs Serverless
+Storage accounts Blob (std vs prem), Files (prem, hot, cold), data lake (std vs prem), hdd vs SSD (std, prem, ultra)
+Database : single vs elastic pool, vcore vs DTU, GP (general purpose), BC (business critical), Hyper, Provisioned vs Serverless
 
-Iier serction is a balance between cost and functionality requirement matters
+Tier selection is a balance between cost and functionality requirement matters
+Know your requirement first to know how to navigate
 
 ### Reserved instances
 commitment = savings
 certain Azure services for a duration (1 or 3 years) in exchqnge of discounted rates, significant savings compared to pay-as-you-go pricing, requires upfront commitment,so assess your long-term needs carefully.
-
+Significant savings compared to pay-as-you-go pricing
+Requires upfront commitment, so assess your long-term needs carefully
 Predictable, steady-state workloads are prime candidates for Revervd instances
 
 ### Azure Hybrid benefit
-Harness On-premises benefits
+Harness On-premises benefits exploiter les avantages sur site
+leveraging on-prem licenses
+different support tiers come at different costs
+add-ons, extensions or third-party services
 
 
 
 ## Azure Pricing Calculator
-###
-###
-###
-###
-###
+
+### Forecasting your cloud expenditures
+
+### Your first step to cost prediction
+Product tools
+Product categories
+Product Picker
+
+### Building your azure financial plan
+Consider the type and scale of your deployment requirements and input them into the calculator
+Experiment with flexible requirements (tiers, instance types)
+Be aware of your hard requirements (regions, data transfer needs)
+
+### Deciphering the calculator's output
+Cost breakdown : Visualization, Time period (daily, monthly, yearly)
+Monthly Cost Estimate : Fixed vs Variable, peak costs, reservations, discount
+Other costs : Data transfer, Bundled pricing, Licensing, Support, Add-ons
+
+### Refining your financial forecast
+Export results to formats that can be integrated into financial tools and/or shared
+Adjust various parameters to discover cost-saving (scaling, regions, instances, etc)
+Use the estimate in larger cost management strategy
+Set budget, monitor costs and continually optimize
+
+Azure advisor for recommendations
+
+### Common mistakes
+- Overestimatin resource needs : start small and scale up if needed
+- Forgetting data transfer costs
+- Ignoring price variations by region
+- Not factoring in (or assuming) discounts
+
+### Tips for more accurate estimates
+- Regularly update usage patterns
+- Factor in growth
+- Use Azure's pricing examples
+- Stay up to date with pricing changes
 
 ## Using the Pricing Calculator
-###
-###
-###
-###
-###
+
+Great for estimating what your cloud cost could look like
+excellent way to explore the question "what if I deployed a"
+should not be taken as a quote for costs
 
 ## Azure Total Cost of Ownership (TCO) Calculator
 ###
