@@ -275,92 +275,240 @@ Linux :
 - SSH using Azure CLI : easy connect method
 - Native SSH
 
-### 
-### 
-### 
 
 ## Deploying your first Azure VM
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
+### Create a VM
+From Homepage, click on create a resource.
+Under "Virtual Machine", click on create
 
 ## Virtual Machine Scale Sets
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
+### What is VMSS
+Auto-scaling groups of identical VMs
+Ability of create and manage multiple, load-balanced and identical VMs.
+
+### Problem to solve
+Too much load/traffic for server to handle
+
+### How does it work
+Multiple identical VMs
+- Identically configured
+- All managed from the same place
+
+Behind a Load Balancer
+- Directs traffic to available VMs
+- Single frontend for users (e.g. a single website address)
+
+Increase/decrease VM count
+- Can automatically or manually adjust count
+- Horizontal scaling
+
+### Benefits
+Multiple identical VMs: simple to manage using a load balancer
+High availability : zone-redundant, deployed accross multiple zone in single region
+Auto-Scaling
+Large Scale : Up to 1000 VMs in a single scale set
+No extra cost
+
+### Creating Cloned VMs
+From Baseline image : 
+- Capture image from baseline/reference VM
+- Scale Set VMs crated from captured image
+
+Configuration script at startup
+- New clone VM runs configuration script on first boot
+
+Combination of both
+- Reference image + additional configurations
 
 ## Availability Sets
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
+### Purpose
+Provides a method for high availability for static VMs in Single Datacenter/Zone
+
+Differences compared to Scale Sets:
+- Non-identical VMs
+- No auto scalling
+- Single datacenter/zone
+
+### Breaking down
+It provides logical grouping of VMs with separate Fault and Update Domains for high availability.
+
+### Fault Domain
+Underlying hypervisor or multipple hypervisors with common power source/network switch.
+
+example: hyoervisors on same server rack
+VMs on hypervisor with same power/networking = single fault domain
+
+### Update domain
+Groups of hypervisors (and VMs) that can be rebooted at same time
+
+Planned hypervisor maintenance updates 
+Not dependent on physical rack/location
+
+Two VMs in same ipdate domain may be both be temporarily unavailable
+
+### Spreading VMs across Update/Fault Domains
+Adding static VMs to an availability set ensures VMs are placed:
+- On hypervisors with separare maintenance windows
+- On hypervisors on different server racks
+=> High availability in case of power supply failure and/or rolling hypervisor updates
+
+### Max limits
+- 20 Updates Domains for your VM
+- 3 Fault domain
+
+### When to use availability sets
+High Availability for multiple unique VMs that don't need auto-scaling
 
 ## Azure Virtual Desktop
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
+### Definition
+Provides virtualized windows desktops and apps hosted on Azure
+- Virtual Desktop Interface (VDI) powered by Iaas (Vm) similar to Citrix
+- Access from any device
+- Separates OS, data and apps from local hardware
+- Centrally managed and secure
 
-## App Services
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
+### Problem to Solve
+How to securely enable a remote Workforce ?
+
+1. Data Security : secure data accessed from many locations
+=> All data centrally stored in Azure includes desktop and apps
+
+2. IT Overhead : manage multiple user desktops can be a nightmare
+=> Apps, updates and settings centrally managed
+=> Use existing Windows 10/11 licenses
+
+3. Software consistency : making sure all users have consistent software and updates
+=> Easily add more VMs to host pool
+=> Multi-session environments
+
+4. Scalability : Support growing workforce
+=> Windows, Mac, mobile devices and web browser
+
+### How it works
+All resources are centrally hosted in Azure
+Configuration, Access and Diagnostics
+VM Host Pools
+
+### Use cases
+Remote Workforce enablement : Remote workspace environment from anywhere, no need for company hardware (BYOD: bring your own device friendly)
+
+Secure Data Handling for healthcare : Secure, controlled access to sensitive patient data, reduced risk of data breaches, simplifies healthcare compliance
+
+## App Services (Paas)
+### Definition
+Fully managed application hosting with minimal managemen overhead
+Bring your code and Azure handles the rest.
+No managing infrastructure.
+
+### Things you don't have to manage
+OS
+Web server applications
+Network management
+High availability
+Disk management
+Load Balancers
+Scaling
+
+### Focus on What matters
+Business Value and Your Code
+
+### App Service hosting capabilities
+Web Apps
+- Support most languages
+- Deploy static web apps
+- Deploy containers
+- No need to install/configure web server software
+- Acccessible via Azure portal
+
+WebJobs 
+- Background tasks for application logic
+
+API Apps
+- Host your REST-based web API
+
+Mobile Apps
+- Backend for iOS/Android apps
+- Authentication, mobile app data and push notifications
+
+### Configuring and deploying app service (Web app)
+Choose a unique name (must be unique across all of Azure)
+Choose publish  (Code, container, static web app)
+Choose a service plan (performance, scaling, disk space and more)
+Deploy your code (Tight integration with github + other methods, support continuous deployment for rapid iteration)
 
 ## Azure Functions
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
+### Definition
+Serverless event-driven code execution
+
+Extreme Paas : pratically zero management overhead
+No VMs to manage
+Apps only run when triggered
+
+### What are Azure Functions
+Sometimes referred to as functin as a service
+![alt text](image-47.png)
+
+### Architecture
+Use VMs to work on
+but no maintenance
+nothing VM-related
+Just focus on your functionality
+
+### Use Case
+Automated Image Resizing upon upload
+Image uploaded to website => triggers an Azure Function Resize => Display on website
+
+### Benefits
+- Only runs when needed : event-driven (when an event triggers that function to run)
+- Saves Money : no resources running means you don't pay for the function when it is not used
+- Resilience : If your function fails, it doesn't affect other function instances
+- Scalability : No configuration required, auto-scales based on demand, scales down to zero and up to your determined cap
+- No infrastructure management : just deploy your code
 
 ## Introduction to Containers
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
+### Definition
+Lightweight, standalone package for apps
+bundled application + dependencies : portable, self-contained unit, isolated from host OS
+
+### Benefits
+Manage Application Dependencies 
+Less overhead
+Increased portability
+Efficiency
+Consistency
+
+### Containers vs VMs
+Additional layer of virtualization:
+- VMs: virtualized hardware
+- Containers : virtualized OS : bild on top of host OS's kernel, can contain only services needed for application
+
+### Container Workflow
+Develop Application -> Application/Dependencies/execution/instructions packaged in a container -> Deploy container
+
 
 ## Container Deployment Options
-### 
-### 
-### 
-### 
+### ACI : Azure Contaier Instances
+- On-demand : use containerized applications to process data on demand, by only creating the container image when you need it
+- Simplicity : minimum setup/overhead required, ideal for short-lived, simple workloads
+- Not as scalable : single containers only, no load balancing/auto-scaling
+
+### Azure Kubernetes Service (AKS)
+Kubernetes : open-source container orchestration
+
+- Orchestrate many containers : manage large scale, high volume, high complexity containerized workloads
+more control and customization
+- Scalability: automatic scaling, load balancing, and failover
+- More complex + higher costs : persistent VMs nodes, between Iaas and Paas, much more complex than ACI
+
+### Azure Container Apps
+- In between ACI and AKS
+- Serverless and scalable: ideal for serverless microservices, auto-scaling enabled
+- Not quite as powerful as AKS : less customization
+
+### Other deployment options
+VMs : You can do anything with VMs, much more to install, manage, configure
+Azure App service : ideal for long-running web applications, use any programming language
+Azure Functions : Containerized event-driven applications, use any programming language
 ### 
 ### 
 ### 
