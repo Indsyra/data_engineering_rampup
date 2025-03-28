@@ -509,180 +509,431 @@ more control and customization
 VMs : You can do anything with VMs, much more to install, manage, configure
 Azure App service : ideal for long-running web applications, use any programming language
 Azure Functions : Containerized event-driven applications, use any programming language
-### 
-### 
-### 
-### 
-### 
-
-## Exam Tips
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
 
 
 # Azure Networking
 ## Virtual Networks
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
+Central construct for private ad public communications
+VNets bound to a region : one or more address spaces, subnets contained in address space
+IP Addressing : VMs mus have private IP, public optional
+
+
+### Core of Azure Networking
+Virtual network (Vnet) : private, isolated network in Azure
+- Home for all VMs
+- Vm isolation/communication boundary
+- Private and public networking
+- One or more address spaces -> One or more subnets
+
+### Adress Spaces and Subnets
+Address Spac : Vnet overall IP range
+Example 1: vnet-1 : 10.0.0.1 - 10.0.255.255
+
+subnet-a, subnet-b and subnet-c
+
+Subnet : segnmented, smaller IP adresses within an address space
+
+- Resource grouping
+### IP Address
+Unique identifier for network devices
+
+Private IP : Local network identifier => invisible to outside world (10 /8 prefix, 172.16 /12 prefix, 192.168 / 16)
+Public IP : Global network identifier
+
+### VM IP Configurations
+Private IP required, public IP optional
+Static vs Dynamic Public IP => Public IP changes upon VM deallocation/reallocation
+Static Public IP remains upon VM deallocation/reallocation (most expensive)
+
+### VNet Regions and Subscriptions
+Vnet is bound to a single Region. Every resource on the VNet must be in the same region too.
+SUbscriptions : VNet belongs to just one subscription, but a subscription can have multiple VNets
+
+### Cloud Advantages
+Software defined networking => Vnet is virtual because when you get access to it, you don't have access to any underlying hardware.
+
+Network components are software cof
+No physical constraints - network is virtualized
+
+Scaling Vnets : Adding more Vnets or more addresses is saimple
+High availability : peering Vnet using a load balancer or using a VPN gateway all increase availability
+Isolation : manage and organize resources with subnets
+
+### VNet : Communication Nerve Center
+Public Networking Public address IPv4 and IPv6
+Intra VNet: communicate privately with other Vnet resources
+Managed Services: public an private network communications
+Peering : private peering between Azure VNets
+Hybrid networking: Private networking with on-prem or other clouds
+Security : All communications can be filtered (Network security groups - NSGs)
 
 ## Network Security
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
+### Exam Scope
+Not on current version of AZ-900 exam
+
+### Network Security Group (NSG)
+Primary traffic filter for subets/VMs
+- Applied to subnet or individual VM
+- Free service
+- Granular rules for fine network control
+    - Inbound/outbound filters
+    - Traffic types (TCP/UDP ports, ICMP)
+    - Allowed sources/destinations
+    - Allow or deny multiple types or traffic
+    - Priority of overlapping rules
+- Example : Only allow RDP (TCP:3389) access from corporate office
+
+### Azure Firewall
+Advances firewll service for multiple networks
+- Centralized traffic control for multiple VNets
+- Paid Service
+- More advanced than NSGs
+    - Threat intelligence
+    - Advanced filtering rules
+    - URL filtering
+    - DNS proxy
+    - On-premises network integration
+
+### Azure Bastion
+Secure SSH/RDP access for private VMs with no public address
+- Connect VMs with no public IP
+    - Managed "jump server"
+- Fully managed service
+- Deployed to VNet
+    - Specific subnet name required
+- Connect via RDP/SSH via web browser or native client
 
 ## Creating Virtual Networks
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
+![alt text](image-48.png)
+VMs must be in the same region of VNet
 
 ## Network Peering
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
+### Challenge : COnnecting Multiple VNets
+Connect multiple VNets to act as single network
+Extend private networking to other Azure regions
+Keep all traffic on Microsoft backbone
 
-## Azure DNS
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
+Solution: Virtual Network Peering
+
+### Big Picture
+Mechanism to maintain private connectivity across Azure VNets
+
+- Expand Azure Network Private Connectivity
+    - Extend connectivity across multiple VNets
+- Secure Traffic
+    - All traffic stays on Microsoft's private backbone
+- Extend reach
+    - Peer across regions, subscriptions and tenants
+
+### Benefits
+- Speed : Low latency, maximum bandwith allowable per VM
+- Traffic Privacy : Traffic stays on Microsoft private backbone, not exposed to public internet
+- Control Traffic between VNets : NSGs, Custom Routes
+
+### Scenario : Multi-national Presence
+E-commerce company expansion :
+Headquartered in North America, expanding Azure presence to Longon and Tokyo
+Need to sync data between regions : Inventory, user data, analytics
+Peering synchronizes data quickly and securely : traffic stays on private backbone, update data in real time
+
+## Azure DNS (Domain Name System)
+### Definition
+Translates domain names to IP Addresses
+=> The phone book of the internet => use easy-to-remember names
+=> public or private phone book
+=> public or private network/IP translation
+=> If DNS stops working, everything stops working
+
+### DNS Resolution Basics
+=> Connection request resolved by DNS host/server
+### Public vs Private DNS Resolution
+- Public = public domain registrar -> authoritative name server
+- Private = private DNS server/host => not authoritative name server
+
+### Azure Public and Private DNS Services
+Public DNS :
+- Azure DNS Zones : use Azure as authoritative name server
+
+- Private DNS :
+- Azure Private DNS Zones : Custom DNS resolution within VNets
+
+=> Global services, not tied to a single region
+
+### Benefits
+- Uses the same tools/credentials/billing as other Azure instances
+- RBAC for access management
+- Activity monitoring
+- Resource locks to prevent changes
 
 ## Hybrid Networking
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
+### Definition
+Connecting trusted external networks over private IP networking
+
+- On-premises
+- Other cloud networks
+- Other Azure VNets
+
+Benefits :
+- Extend private networking beyond your VNet
+- Encrypt traffic between networks
+
+### Azure Hybrid Connection Options
+Site-to-Site (S2S) VPN
+- Network to Network
+- Connect over IPsec/IKE
+- Uses public internet
+- Can connect to other Azure VNets
+
+Point-to-Site (P2S) VPN
+- Azure network to individual computer
+- Ideal for telecommuters
+- Also over public internet
+
+ExpressRoute
+- Direct, private connection to Microsoft services
+    - Not over public internet
+- Lease dedicated over private carrier
+
+### Virtual Network Gateway
+Core component of all Azure hybrid connectivity solutions
+Managed Azure resource hosted in VNet
+Endpoint connecting VNet and hybrid connection option
+One Network Gateway per VNet
 
 ## Azure VPN
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
+### Site-to-Site VPN - Network-to-Network
+Encrypted network-to-network connection over public internet
+
+VNet Gateway + VPN becomes a VPN Gateway
+
+### S2S VPN Components 
+- VPN Gateway resources : Create the tunnel to target on-premises IP addresses
+- Local Network Gateway : receives the message to connect on a specific IP address on th On-premises network
+
+### Point-to-Site (P2S) VPN : Network-to-Computer
+Encrypted Network-to-Device Connection over Public Internet
+Ideal for remote workers who need private networking access
+
+### VPN Types : Policy-Based vs Route-Based
+Policy-Based 
+- Most backwards compatible
+- Only supports Static routing
+- No Point-to-Site VPN
+- Connct to single site
+vs
+Route-Based(more capabilities)
+- Not as backwards compatile
+- Dynamic routing
+- Supports Point-to-Site VPN
+- Connect to multiple sites
+
+### VPN and High Availability
+Behind the scenes : Gateway = two managed VMs running connection
+Active-Standby : Default configuration : one VM running one tunnel. If one VM fails, other takes over after slight delay
+Active-Active : Two active tunnels, maximum high availability, additional configuration requirements
+
+### Peering vs VPN to connect Azure VNets
+Peering
+- Faster and less expensive
+- No encryption between networks
+- Traffic stays on Microsoft backbone
+- Lower latency
+- Maximum bandwidth between networks
+- Less expensive, less to manage
+
+VPN
+- Provides encryption between networks
+- Involves public internet
+- Network gateway manages traffic
+- Bandwidth limited, more hops
+- Ideal for security and compliance
+- Network gateway = additional costs
+- Have a higher monthly cost
 
 ## ExpressRoute
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
+### Definition
+Private, Fast connection to Microsoft Cloud
+- Private, leased lines into Microsoft's network
+    - Not over the public internet
+    - On-premises connections only
+- Often partner with connectivity provider
+- Privately connect to VNets and other Microsoft Cloud services
+
+Benefits :
+- Reliable and fast connection
+    - Built-in redundancy (active-active)
+- High speed options available
+
+### VNet Setup
+=> ExpressRoute not just for VNets
+Same Virtual Network Gateway as VPN
+- Same subnet naming requirement
+- configured as ExpressRoute Gateway vs VPN Gateway
+
+=> Gateway connects to ExpressRoute Circuit
+- ExpressRoute Circuit = Azure resource connecting to private connection
+
+### Infrastructure
+- Partner Edg : service provider routers that connect to you network
+- MS Edge: Edge routers on Microsoft's side of ExpressRoute circuit
+
+### ExpressRoute vs VPN
+- Faster
+- Cost more
+- More permanent
+- More Private
 
 ## Public and Private Endpoints
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
+### Public endpoints = publicly reachable PaaS Services
+- Maaged PaaS Services reachable over the public interney
+    - VNet : PaaS over public internet
+    - Also exposed to the public
+    - problem with sensitive resources
+
+Limit or remove public exposure ?
+- Remove public endpoint/enable private networking
+
+### Private endpoint
+Managed network interface
+- Private connection to specific instance of a service (private storage account, private databases)
+Available over connected networks
+- Hybrid/on-premises networks
+- Peered virtual networks
+Can completely disabl public access to a connected service
+- Truly private
+- Public endpoint disabled
+
+### Scenario
+VPN connection from corporate office to Azure VNet named hub-vnet
+Must privately access sensitive storage account from corporate office : Disable public internet exposure
+
+Solution : a private endpoint
+- privately connects hub-vnet to storage account
+- private access from corporate office
+- can also disable public access for truly private connection
 
 ## Exam Tips
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
+Azure VNet : private, isolated netwotk in Azure
+=> Requird for all VM   
+![alt text](image-49.png)
 
+![alt text](image-50.png)
+![alt text](image-51.png)
+![alt text](image-52.png)
+![alt text](image-53.png)
+![alt text](image-54.png)
+![alt text](image-55.png)
+![alt text](image-56.png)
+![alt text](image-57.png)
+![alt text](image-58.png)
+![alt text](image-59.png)
+![alt text](image-60.png)
+![alt text](image-61.png)
+![alt text](image-62.png)
+![alt text](image-63.png)
+![alt text](image-64.png)
 
 # Azure Storage
 ## Introduction to Azure Storage
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
+### Storage accounts
+They are management layer for Azure Storage services
+=> Configures performance, security and access settings
+=> Include multiple storage services (blobs, files queues, tables, disks, data lake, multiple instances of each storage service type)
+
+Provides unique namespace to all storage objects
+
+### Storage accounts and storage services
+MyStorageaccount (Management layer)
+=> Storage Services (Blob container, Table, FIles, Queues)
+
+### Storage services
+Different storage solutions for different types of data within a storage Account
+- Azure Blobs : object store, any file type
+- Azure Files : Managed file share (file server)
+- Azure Queues : Messaging store between application components
+- Azure Tables : NoSQL tables
+- Azure Disks : Managed VM Disks, not managed in Storage account
+
+### Unique Namespace for storage account
+Account name must be globally unique
+=> namespace given for all endpoints/storage services
+=> lowercase and numbers only
+=> every storage service has its own address
 
 ## Azure Blobs
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
+### Definition
+Unstructured data storage
+Any file type
+
+Binary large object => Any file
+Can store massive amounts of data (petabytes of storage)
+Blobs stored in containers
+Multiple storage tiers to balance performance/cost
+Don't need to pre-provision space. Charged by actual space used
+
+### Blob Storage Layers
+Storage Account => Containers => Blobs (logs, videos, txt, photos, pdfs)
+
+### Web access for blobs
+Each blob has a web address
+Blobs can be private or public (private by default)
+Address format (Example : https://mystoragecount.blob.core.windows.net/images/funycat.jpg => container name : images, blob : funnycat.jpg)
+
+### Types
+- Block : store text and binary data up to about to 4TB. Made up for individually managed blocks of data.
+- Append : Block blobs that are optimized for append operations. Works well for logging whre data is constantly appended
+- Page : Store files up to 8TB. Any part of the file could be accessed at any time. for example, a virtual hard drive.
+
+### Use cases
+Images for public website : single image storage location for all sizes and formats
+File storage : though not a file server, an still act as file storage location
+streaming : stream audio and video directly from your blob storage
+log files : write to log files regardless of size and frequency
+data store : store any kind of data at scale, such as for archiving, backup, restore and disaster recovery
+data analysis : data storage for Azure or other data analysis products
 
 ## Blob Storage Tiers
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
+### Problem to solve
+Expanding storage needs : higher costs
+- Not all stored data needs frequent, instant access
+- Data accessed less frequently = wasted money
+
+Solution : Optimize costs with tiered storage based on access needs.
+
+### Types
+Online :
+- Hot : Frequently accessed data
+- Cool : less frequently accessed (minimum retention days : 30 days, every 3 days)
+- Cold : even less frequently accessed (minimum retention 90 days)
+Offline :
+- archive : rarely accessed, if ever (minimum retention 180 days)
+
+### Balance storage costs with usage/retention costs
+- Cheaper storage tiers have higher minimum retention + higher usage costs : minimum retention : how long data must exist before deletion
+- Accesing cheaper storage tier data has extra cost : frequently accessed data needs to be hot tier
+
+### Archive storage tier
+Only not instantly accessible option
+- Offline data for VERY rare access needs
+- Archive data must be rehydrated (must request data to be brought back online, rehydration time measured in hours, rehydration request has additional cost)
+- Archive scenarios (long term compliance archiving, legal hold data)
+
+### Configuring Storage Tiers
+- Storage Account vs blob-level configuration
+(Account-level : default tier for new objects : hot/cool, Blob-level all levels)
+- Existing blobs can chang tiers : example hot -> cold
+
+### Scenarios
+Hot : real-time analytics data, website images/videos
+Cool/Cold : Short term backups, seasonal data
+Archive : Medical records, historical data
 
 ## Creating an Azure Storage Account and Blob Container
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
+### create a Storage Account
+- Naming requirements : globally unique and lowerspace
+- Default storage tier options
+- Redundancy and premium options
+
 
 ## Disks
 ### 
