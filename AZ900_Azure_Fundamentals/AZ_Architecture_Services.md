@@ -936,81 +936,210 @@ Archive : Medical records, historical data
 
 
 ## Disks
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
+### Storage accounts
+Managed Disks for VMs:
+- VMs Disks backed by Azure Storage
+- Storage account abstract away : No storage account interaction, provision your disk and handles the rest, Unmanaged disks are being removed
+- Import .vhd files from on-premises : import on-premises disks into Azure
+
+### Disk Types
+- HDD : hard drive disk => spinning hard drive, low cost and suitable for backups
+- Standard SSD : standard for production, higher reliability, scalability and lower latency over HDD
+- Premium SSD/v2 : super fast and high performance. very low latency. for critical workloads. up to 64TB
+- Ultra Disk : Demanding, data-intensive, load-latency workloads, Up to 64TB
+
+### Disk Comparision
+![alt text](image-65.png)
 
 ## Azure Files
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
+### The problem to solve
+On-premises file services face some issues :
+- Constraints : only a limited amount of storage
+- Backups : time and resources spent on maintaining backups
+- Security : it can be hard to keep all data secure at all times. Specialist assistance often needed.
+- File Sharing : difficult to share files across teams and organizations
 
-## Tables and Queues
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
+### Definition
+Cloud-based fully-managed file share/server solution
+- SMB and NFS protocols (Windows and Linux respectively)
+- Available on Windows/Mac/Linux
+- Flexible Deployments : cloud-only or synced to on-premises file servers with Azure file sync, fast access near your users in multiple locations
+
+### Benefits
+- Replace/Synchronize file servers : maintain application compatibility
+- Managed : not worry about hardware or operating system
+- Scripting and Tooling  : use existing file server managemet tools (powershel cmdlets, Azure CLI)
+- Highly available : replicate data across zones/regions
+- Practically infinite space : no hard drive hardware constraints, Backup with Azure Backup
+- Authentication : integrate with on-prem Active Directory, Azure Active Directory Domain Services
+
+### Scenarios
+Hybrid : supplement or replace your existing on-premises file storage solutio
+Lift and shift : Move your existing file storage and related services to Azure
+
+## Tables and Queues (Not currently part of AZ-900)
+### Azure Tables :
+Light weight DB: NoSQL Storage for structured scalable data
+- Large volumes of NoSQL/non-relational data
+- Hybrid and multi-cloud setups : can be integrated with Azure/non-Azure solutions, Cost-effective, lightweight database solution
+- In transition to migrate to CosmosDB : azure storage product remains though
+
+### Azure Queues
+Acts as a message storage for asynchronouss task processing
+- Store large volumes of messages (messages = data sent from/to different applications), deliver/retrieve over HTTP/HTTPS => Order processing system
+- Asynchronous Processing : application components aren't directly linked, can allow backlog of messages to be processed later
+
+### Scenario
+Order processing pipeline
+Order placed with Other details.
+Details will be placed in Azure Queues which will trigger Azure Function to takes message to fulfillment center.
 
 ## Storage Redundancy
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
+### Importance
+Accidents happen : Hardware failure
+zone/regional outage
+Data redundancy protects against unplanned failures
+
+### Create multiple replicated copies of Data
+If one copy fails/is inaccessible, data is still available
+Azure Storage always creates multiple copies of your data :
+- Automatic
+- Minimum of three copies
+- invisible to end user
+
+Multiple redundancy options : different location scopes (single zones, multiple zones, multiple regions)
+Higher availability = Higher costs
+
+### Redundancy Options
+- Single Region :
+Locally redundant storage (LRS)
+Zone-redundant storage (ZRS)
+
+- Multi-region : 
+Geo-redundant storage (GRS)
+Geo-Zone-Redundant Storage (GZRS)
+
+All options include :
+- Three copies in primary region
+- Three copies in secondary region (multi-region options)
+
+### LRS
+Lowest cost redundancy options
+- Three copies in single location (datacenter/zone)
+- Protect against single disk failure
+- Does not protect against zone or regional outage
+
+### ZRS
+Three copies across three availability zons
+- One copy in each zone
+- Protect against zone outage but not regional outage
+
+### GRS
+Three copies in two different regions
+- Three copies in primary regional physical location (LRS)
+- Three copies in secondary (paired) region physical location
+- protect against primary region gailure but no primary region zone redundancy
+- can configure read access from secondary region for high availability
+
+### GZRS
+Maximum redundancy
+- Copy across 3 availability zones in primary region (ZRS)
+- 3 Copies in secondary region physical location/zone (LRS)
+- Protect against primary region failure and primary region zone failure
+- Can also configure read access from secondary region for high availability
 
 ## Moving Data in Azure Storage
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
+### Concept
+Solutions based on:
+Transfer frequency (occasional/continuous)
+Data size
+Network bandwidth
+
+AZ-900 focus for smaller, occasional transfers
+AzCopy
+Azure Storage Explorer
+Azure File Sync
+
+### AzCopy
+Command-line utility for 
+- Transfers blobs and Azure files
+- Useful for scripting data transfers
+
+### Storage Explorer
+Graphical User interface
+- Downloaded application
+- user-friendly graphical interface
+- Move all storage account formats
+
+### Azure File Sync
+Synchronize Azure Files with on-premises file servers
+Local file server performance + cloud availability
+
+Use cases : back up local file server, synchronize files between multiple on-premises locations
+remote users access Azure Files (map local drive to Azure)
+Transition to only Azure Files for file server
+
+## Demo
+Download Storage explorer
+In Storage account, click on Storage browser => Other ways to manage data => Download Storage Explorer
+
 
 ## Additional Migration Options
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
+### Azure Data Box
+Scenario : Transfer lots of data and/or limited bandwidth
+- Lots : too much to transfer over the internet
+- Relative to available network banswidth
+
+Offline data transfers to/from Azure
+Copy data to physical data storage device (data box) : encryoted, rugged
+
+Ship data box to/from Azure :
+- to azure : data box transferred to storage account
+- from azure: Data box delivered to on-premises location for on-site transfer
+
+### Use cases
+initial bulk data migration (example : 8TB data to transfer)
+disaster recovery (restore azure backup to on-premises location)
+security requirements : sensitive data 
+
+### Azure Migrate
+Migrate non-Azure resources into Azure : servers, databases, applications => includes, but not limited to, migration to storage accounts
+
+### Scenario
+Migrating on-premises to Azure
+
+Discover dependent resources to migrate
+Migrate VMs
+Migrate databases to managed database sevices
+Migrate on-premises applications and dependencies
+Migrate bulk data with Data Box
 
 ## Premium Performance Options
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
-### 
+### Need for speed
+Premium performance options for low-latency requirements
+- Stord on SSD
+- Considerations :
+    - Available storage types for each performance option
+    - Redundancy options : trade more performance for less redundancy, LRS/ZRS only
+- All premium options have higher costs
+
+### Storage account performance Options
+- Standard : standard general-purpose v2
+- Premium : premium block blobs, premium page blobs, premium file shares
+
+### Premium block blobs
+=> supports block blob storage
+=> ideal for low-latency blob storage workloads (AI applications, IoT analytics)
+
+### Premium Page blobs
+=> Page blobs
+- unmanaged virtual disk
+- standalone API access
+
+### Premium file shares
+=> Azure files
+- Ideal for high-performance enterprise (file server) applications
+- supports both server message block (SMB - Windows) and Network File system (NFS - Linux)
 
 ## Exam Tips
 ### 
